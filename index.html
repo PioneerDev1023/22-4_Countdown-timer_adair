@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .button {
+              background-color: #4CAF50; /* Green */
+              border: none;
+              color: white;
+              padding: 8px 16px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              margin: 4px 2px;
+              transition-duration: 0.4s;
+              cursor: pointer;
+              font-weight: 700;
+              text-align:  center;
+              display: flex;
+              margin: auto;
+            }
+
+            .button1 {
+              background-color: white; 
+              color: black; 
+              border: 2px solid #4CAF50;
+            }
+
+            .button1:hover {
+              background-color: #4CAF50;
+              color: white;
+            }
+    </style>
+</head>
+<body>
+    <button class="button button1" id="start_btn">S T A R T</button>
+    <h2 id="demo" style="display:none; color:red; text-align:  center;">Time is up!</h2>
+    <script>
+        document.getElementById("start_btn").addEventListener("click", startTimer);
+        function startTimer() {
+            document.querySelector('#time_block').style.display = "block";
+            document.querySelector('#start_btn').style.display = "none";
+            var duration = 60 * 45;
+            var display = document.querySelector('#time');
+            var timer = duration, minutes, seconds;
+            var t = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearTimeout(t);
+                    var time_block = document.querySelector('#time_block');
+                    time_block.style.display = "none";
+                    document.querySelector('#demo').style.display = "block";
+                    var audio = new Audio("http://www.noa-soft.com/DownLoadFiles/alarm_beep.wav");
+                    audio.play();
+                }
+            }, 1000);
+        }     
+    </script>
+
+    <h2 id="time_block" style="display: none; text-align:  center;">There are <span id="time" style="color:red;">45:00</span> minutes left for the exam.</h2>
+
+</body>
+</html>
